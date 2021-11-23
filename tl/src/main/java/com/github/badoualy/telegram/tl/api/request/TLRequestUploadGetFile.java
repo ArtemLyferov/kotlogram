@@ -31,7 +31,7 @@ public class TLRequestUploadGetFile extends TLMethod<TLAbsFile> {
 
     protected int limit;
 
-    private final String _constructor = "upload.getFile#e3a6cfb5";
+    private final String _constructor = "upload.getFile#b15a9afc";
 
     public TLRequestUploadGetFile() {
     }

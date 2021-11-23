@@ -6,6 +6,6 @@ import com.github.badoualy.telegram.tl.api.TLInputDocument
 import com.github.badoualy.telegram.tl.api.TLInputDocumentEmpty
 
 fun TLAbsDocument.toInputDocument() = when (this) {
-    is TLDocument -> TLInputDocument(id, accessHash)
+    is TLDocument -> TLInputDocument(id, accessHash, fileReference)
     else -> TLInputDocumentEmpty()
 }

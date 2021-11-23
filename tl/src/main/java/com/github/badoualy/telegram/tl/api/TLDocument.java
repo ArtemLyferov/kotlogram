@@ -33,16 +33,14 @@ public class TLDocument extends TLAbsDocument {
 
     protected int dcId;
 
-    protected int version;
-
     protected TLVector<TLAbsDocumentAttribute> attributes;
 
-    private final String _constructor = "document#87232bc7";
+    private final String _constructor = "document#1e87342b";
 
     public TLDocument() {
     }
 
-    public TLDocument(long id, long accessHash, TLBytes fileReference, int date, String mimeType, int size, TLAbsPhotoSize thumb, int dcId, int version, TLVector<TLAbsDocumentAttribute> attributes) {
+    public TLDocument(long id, long accessHash, TLBytes fileReference, int date, String mimeType, int size, TLAbsPhotoSize thumb, int dcId, TLVector<TLAbsDocumentAttribute> attributes) {
         this.id = id;
         this.accessHash = accessHash;
         this.fileReference = fileReference;
@@ -51,7 +49,6 @@ public class TLDocument extends TLAbsDocument {
         this.size = size;
         this.thumb = thumb;
         this.dcId = dcId;
-        this.version = version;
         this.attributes = attributes;
     }
 
@@ -65,7 +62,6 @@ public class TLDocument extends TLAbsDocument {
         writeInt(size, stream);
         writeTLObject(thumb, stream);
         writeInt(dcId, stream);
-        writeInt(version, stream);
         writeTLVector(attributes, stream);
     }
 
@@ -80,7 +76,6 @@ public class TLDocument extends TLAbsDocument {
         size = readInt(stream);
         thumb = readTLObject(stream, context, TLAbsPhotoSize.class, -1);
         dcId = readInt(stream);
-        version = readInt(stream);
         attributes = readTLVector(stream, context);
     }
 
@@ -94,7 +89,6 @@ public class TLDocument extends TLAbsDocument {
         size += computeTLStringSerializedSize(mimeType);
         size += SIZE_INT32;
         size += thumb.computeSerializedSize();
-        size += SIZE_INT32;
         size += SIZE_INT32;
         size += attributes.computeSerializedSize();
         return size;
@@ -172,14 +166,6 @@ public class TLDocument extends TLAbsDocument {
 
     public void setDcId(int dcId) {
         this.dcId = dcId;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public TLVector<TLAbsDocumentAttribute> getAttributes() {

@@ -24,18 +24,15 @@ public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
 
     protected TLBytes fileReference;
 
-    protected int version;
-
-    private final String _constructor = "inputDocumentFileLocation#430f0724";
+    private final String _constructor = "inputDocumentFileLocation#bad07584";
 
     public TLInputDocumentFileLocation() {
     }
 
-    public TLInputDocumentFileLocation(long id, long accessHash, TLBytes fileReference, int version) {
+    public TLInputDocumentFileLocation(long id, long accessHash, TLBytes fileReference) {
         this.id = id;
         this.accessHash = accessHash;
         this.fileReference = fileReference;
-        this.version = version;
     }
 
     @Override
@@ -43,7 +40,6 @@ public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
         writeLong(id, stream);
         writeLong(accessHash, stream);
         writeTLBytes(fileReference, stream);
-        writeInt(version, stream);
     }
 
     @Override
@@ -52,7 +48,6 @@ public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
         id = readLong(stream);
         accessHash = readLong(stream);
         fileReference = readTLBytes(stream, context);
-        version = readInt(stream);
     }
 
     @Override
@@ -61,7 +56,6 @@ public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
         size += SIZE_INT64;
         size += SIZE_INT64;
         size += computeTLBytesSerializedSize(fileReference);
-        size += SIZE_INT32;
         return size;
     }
 
@@ -97,13 +91,5 @@ public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
 
     public void setFileReference(TLBytes fileReference) {
         this.fileReference = fileReference;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 }
