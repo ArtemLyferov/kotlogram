@@ -1,26 +1,15 @@
 package com.github.badoualy.telegram.tl.api;
 
 import com.github.badoualy.telegram.tl.TLContext;
+import com.github.badoualy.telegram.tl.core.TLBytes;
 import com.github.badoualy.telegram.tl.core.TLVector;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
-import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
-import static com.github.badoualy.telegram.tl.StreamUtils.readTLVector;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeString;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeTLVector;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLStringSerializedSize;
+import static com.github.badoualy.telegram.tl.StreamUtils.*;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
 
 /**
  * @author Yannick Badoual yann.badoual@gmail.com
@@ -31,6 +20,8 @@ public class TLDocument extends TLAbsDocument {
     public static final int CONSTRUCTOR_ID = 0x87232bc7;
 
     protected long accessHash;
+
+    protected TLBytes fileReference;
 
     protected int date;
 
@@ -51,9 +42,10 @@ public class TLDocument extends TLAbsDocument {
     public TLDocument() {
     }
 
-    public TLDocument(long id, long accessHash, int date, String mimeType, int size, TLAbsPhotoSize thumb, int dcId, int version, TLVector<TLAbsDocumentAttribute> attributes) {
+    public TLDocument(long id, long accessHash, TLBytes fileReference, int date, String mimeType, int size, TLAbsPhotoSize thumb, int dcId, int version, TLVector<TLAbsDocumentAttribute> attributes) {
         this.id = id;
         this.accessHash = accessHash;
+        this.fileReference = fileReference;
         this.date = date;
         this.mimeType = mimeType;
         this.size = size;
@@ -67,6 +59,7 @@ public class TLDocument extends TLAbsDocument {
     public void serializeBody(OutputStream stream) throws IOException {
         writeLong(id, stream);
         writeLong(accessHash, stream);
+        writeTLBytes(fileReference, stream);
         writeInt(date, stream);
         writeString(mimeType, stream);
         writeInt(size, stream);
@@ -81,6 +74,7 @@ public class TLDocument extends TLAbsDocument {
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         id = readLong(stream);
         accessHash = readLong(stream);
+        fileReference = readTLBytes(stream, context);
         date = readInt(stream);
         mimeType = readTLString(stream);
         size = readInt(stream);
@@ -95,6 +89,7 @@ public class TLDocument extends TLAbsDocument {
         int size = SIZE_CONSTRUCTOR_ID;
         size += SIZE_INT64;
         size += SIZE_INT64;
+        size += computeTLBytesSerializedSize(fileReference);
         size += SIZE_INT32;
         size += computeTLStringSerializedSize(mimeType);
         size += SIZE_INT32;
@@ -129,6 +124,14 @@ public class TLDocument extends TLAbsDocument {
 
     public void setAccessHash(long accessHash) {
         this.accessHash = accessHash;
+    }
+
+    public TLBytes getFileReference() {
+        return fileReference;
+    }
+
+    public void setFileReference(TLBytes fileReference) {
+        this.fileReference = fileReference;
     }
 
     public int getDate() {

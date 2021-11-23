@@ -1,21 +1,15 @@
 package com.github.badoualy.telegram.tl.api;
 
 import com.github.badoualy.telegram.tl.TLContext;
+import com.github.badoualy.telegram.tl.core.TLBytes;
 import com.github.badoualy.telegram.tl.core.TLVector;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
-import static com.github.badoualy.telegram.tl.StreamUtils.readTLVector;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeTLVector;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
+import static com.github.badoualy.telegram.tl.StreamUtils.*;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
 
 /**
  * @author Yannick Badoual yann.badoual@gmail.com
@@ -31,21 +25,27 @@ public class TLPhoto extends TLAbsPhoto {
 
     protected long accessHash;
 
+    protected TLBytes fileReference;
+
     protected int date;
 
     protected TLVector<TLAbsPhotoSize> sizes;
+
+    protected int dcId;
 
     private final String _constructor = "photo#9288dd29";
 
     public TLPhoto() {
     }
 
-    public TLPhoto(boolean hasStickers, long id, long accessHash, int date, TLVector<TLAbsPhotoSize> sizes) {
+    public TLPhoto(boolean hasStickers, long id, long accessHash, TLBytes fileReference, int date, TLVector<TLAbsPhotoSize> sizes, int dcId) {
         this.hasStickers = hasStickers;
         this.id = id;
         this.accessHash = accessHash;
+        this.fileReference = fileReference;
         this.date = date;
         this.sizes = sizes;
+        this.dcId = dcId;
     }
 
     private void computeFlags() {
@@ -60,8 +60,10 @@ public class TLPhoto extends TLAbsPhoto {
         writeInt(flags, stream);
         writeLong(id, stream);
         writeLong(accessHash, stream);
+        writeTLBytes(fileReference, stream);
         writeInt(date, stream);
         writeTLVector(sizes, stream);
+        writeInt(dcId, stream);
     }
 
     @Override
@@ -71,8 +73,10 @@ public class TLPhoto extends TLAbsPhoto {
         hasStickers = (flags & 1) != 0;
         id = readLong(stream);
         accessHash = readLong(stream);
+        fileReference = readTLBytes(stream, context);
         date = readInt(stream);
         sizes = readTLVector(stream, context);
+        dcId = readInt(stream);
     }
 
     @Override
@@ -83,8 +87,10 @@ public class TLPhoto extends TLAbsPhoto {
         size += SIZE_INT32;
         size += SIZE_INT64;
         size += SIZE_INT64;
+        size += computeTLBytesSerializedSize(fileReference);
         size += SIZE_INT32;
         size += sizes.computeSerializedSize();
+        size += SIZE_INT32;
         return size;
     }
 
@@ -122,6 +128,14 @@ public class TLPhoto extends TLAbsPhoto {
         this.accessHash = accessHash;
     }
 
+    public TLBytes getFileReference() {
+        return fileReference;
+    }
+
+    public void setFileReference(TLBytes fileReference) {
+        this.fileReference = fileReference;
+    }
+
     public int getDate() {
         return date;
     }
@@ -136,6 +150,14 @@ public class TLPhoto extends TLAbsPhoto {
 
     public void setSizes(TLVector<TLAbsPhotoSize> sizes) {
         this.sizes = sizes;
+    }
+
+    public int getDcId() {
+        return dcId;
+    }
+
+    public void setDcId(int dcId) {
+        this.dcId = dcId;
     }
 
     @Override
