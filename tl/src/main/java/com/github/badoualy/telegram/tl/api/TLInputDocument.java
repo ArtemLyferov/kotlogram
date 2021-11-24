@@ -18,7 +18,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLBytesSerial
  */
 public class TLInputDocument extends TLAbsInputDocument {
 
-    public static final int CONSTRUCTOR_ID = 0x18798952;
+    public static final int CONSTRUCTOR_ID = 0x1abfb575;
 
     protected long id;
 

@@ -16,7 +16,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
  */
 public class TLInputDocumentFileLocation extends TLAbsInputFileLocation {
 
-    public static final int CONSTRUCTOR_ID = 0x430f0724;
+    public static final int CONSTRUCTOR_ID = 0xbad07584;
 
     protected long id;
 

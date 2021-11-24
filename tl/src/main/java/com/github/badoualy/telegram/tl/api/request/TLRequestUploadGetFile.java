@@ -23,7 +23,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLRequestUploadGetFile extends TLMethod<TLAbsFile> {
 
-    public static final int CONSTRUCTOR_ID = 0xe3a6cfb5;
+    public static final int CONSTRUCTOR_ID = 0xb15a9afc;
 
     protected TLAbsInputFileLocation location;
 

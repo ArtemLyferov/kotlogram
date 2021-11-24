@@ -17,7 +17,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
  */
 public class TLDocument extends TLAbsDocument {
 
-    public static final int CONSTRUCTOR_ID = 0x87232bc7;
+    public static final int CONSTRUCTOR_ID = 0x1e87342b;
 
     protected long accessHash;
 
