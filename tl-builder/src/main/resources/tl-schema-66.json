@@ -567,7 +567,7 @@
     },
     {
       "predicate": "inputDocumentFileLocation",
-      "id": 1125058340,
+      "id": -1160743548,
       "params": [
         {
           "name": "id",
@@ -578,8 +578,8 @@
           "type": "long"
         },
         {
-          "name": "version",
-          "type": "int"
+          "name": "file_reference",
+          "type": "bytes"
         }
       ],
       "type": "InputFileLocation"
@@ -4951,7 +4951,7 @@
     },
     {
       "predicate": "inputDocument",
-      "id": 410618194,
+      "id": 448771445,
       "params": [
         {
           "name": "id",
@@ -4960,6 +4960,10 @@
         {
           "name": "access_hash",
           "type": "long"
+        },
+        {
+          "name": "file_reference",
+          "type": "bytes"
         }
       ],
       "type": "InputDocument"
@@ -4977,7 +4981,7 @@
     },
     {
       "predicate": "document",
-      "id": -2027738169,
+      "id": 512177195,
       "params": [
         {
           "name": "id",
@@ -4986,6 +4990,10 @@
         {
           "name": "access_hash",
           "type": "long"
+        },
+        {
+          "name": "file_reference",
+          "type": "bytes"
         },
         {
           "name": "date",
@@ -5005,10 +5013,6 @@
         },
         {
           "name": "dc_id",
-          "type": "int"
-        },
-        {
-          "name": "version",
           "type": "int"
         },
         {
@@ -12095,7 +12099,7 @@
     },
     {
       "method": "upload.getFile",
-      "id": -475607115,
+      "id": -1319462148,
       "params": [
         {
           "name": "location",
