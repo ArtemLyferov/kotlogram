@@ -336,7 +336,7 @@ public interface TelegramApi {
 
     TLAbsDhConfig messagesGetDhConfig(int version, int randomLength) throws RpcErrorException, IOException;
 
-    TLAbsDialogs messagesGetDialogs(boolean excludePinned, int offsetDate, int offsetId, TLAbsInputPeer offsetPeer, int limit) throws RpcErrorException, IOException;
+    TLAbsDialogs messagesGetDialogs(boolean excludePinned, int folderId, int offsetDate, int offsetId, TLAbsInputPeer offsetPeer, int limit, long hash) throws RpcErrorException, IOException;
 
     TLAbsDocument messagesGetDocumentByHash(TLBytes sha256, int size, String mimeType) throws RpcErrorException, IOException;
 
