@@ -22,7 +22,7 @@ object GetHistorySample {
 
         // You can start making requests
         try {
-            val tlAbsDialogs = client.messagesGetDialogs(false, 0, 0, TLInputPeerEmpty(), 1)
+            val tlAbsDialogs = client.messagesGetDialogs(false, 0, 0, 0, TLInputPeerEmpty(), 1, 0)
             val tlAbsPeer = tlAbsDialogs.dialogs[0].peer
             val tlPeerObj: TLObject =
                     if (tlAbsPeer is TLPeerUser) tlAbsDialogs.users.first { it.id == tlAbsPeer.id }

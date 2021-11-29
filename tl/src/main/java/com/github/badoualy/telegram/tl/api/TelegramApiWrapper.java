@@ -741,9 +741,9 @@ public abstract class TelegramApiWrapper implements TelegramApi {
     }
 
     @Override
-    public TLAbsDialogs messagesGetDialogs(boolean excludePinned, int offsetDate, int offsetId, TLAbsInputPeer offsetPeer, int limit) throws RpcErrorException, IOException {
+    public TLAbsDialogs messagesGetDialogs(boolean excludePinned, int folderId, int offsetDate, int offsetId, TLAbsInputPeer offsetPeer, int limit, long hash) throws RpcErrorException, IOException {
         return (TLAbsDialogs) executeRpcQuery(
-                new TLRequestMessagesGetDialogs(excludePinned, offsetDate, offsetId, offsetPeer, limit));
+                new TLRequestMessagesGetDialogs(excludePinned, folderId, offsetDate, offsetId, offsetPeer, limit, hash));
     }
 
     @Override
